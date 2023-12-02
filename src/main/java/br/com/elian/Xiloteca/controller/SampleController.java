@@ -30,13 +30,24 @@ public class SampleController {
         return ResponseEntity.created(null).body(newSample);
     }
 
+    @PutMapping("edit/{id}")
+    public ResponseEntity<Sample> update(@RequestBody SampleDTO newSample, @PathVariable String id){
+        Optional<Sample> sample = sampleService.findById(id);
+        Sample attSample = new Sample(newSample);
+        if(sample.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        sampleService.update(id, attSample);
+        return ResponseEntity.ok().body(attSample);
+    }
+
     @DeleteMapping("del/{id}")
     public ResponseEntity<Sample> delete(@PathVariable String id){
         Optional<Sample> sample = sampleService.findById(id);
         if(sample.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        sampleService.remove(id);
+        sampleService.delete(id);
         return ResponseEntity.ok().body(null);
     }
 }

@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/sample/find").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/api/sample/insert").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/sample/edit/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/sample/del/{id}").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

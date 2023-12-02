@@ -28,7 +28,29 @@ public class SampleService {
         return sample;
     }
 
-    public void remove(String id){
+    public Sample update(String id, Sample newSample){
+        Optional<Sample> sample = findById(id);
+        if(sample.isPresent()){
+            Sample attSample = sample.get();
+            attSample.setCod(newSample.getCod() != null ? newSample.getCod() : attSample.getCod());
+            attSample.setBlade(newSample.getBlade() != null ? newSample.getBlade() : attSample.getBlade());
+            attSample.setHerb(newSample.getHerb() != null ? newSample.getHerb() : attSample.getHerb());
+            attSample.setFamily(newSample.getFamily() != null ? newSample.getFamily() : attSample.getFamily());
+            attSample.setSciName(newSample.getSciName() != null ? newSample.getSciName() : attSample.getSciName());
+            attSample.setComName(newSample.getComName() != null ? newSample.getComName() : attSample.getComName());
+            attSample.setCollector(newSample.getCollector() != null ? newSample.getCollector() : attSample.getCollector());
+            attSample.setCollDate(newSample.getCollDate() != null ? newSample.getCollDate() : attSample.getCollDate());
+            attSample.setDeterminer(newSample.getDeterminer() != null ? newSample.getDeterminer() : attSample.getDeterminer());
+            attSample.setSender(newSample.getSender() != null ? newSample.getSender() : attSample.getSender());
+            attSample.setDesc(newSample.getDesc() != null ? newSample.getDesc() : attSample.getDesc());
+            attSample.setObs(newSample.getObs() != null ? newSample.getObs() : attSample.getObs());
+            sampleRepository.save(sample.get());
+            return sample.get();
+        }
+        return null;
+    }
+
+    public void delete(String id){
         Optional<Sample> sample = findById(id);
         sample.ifPresent(value -> sampleRepository.delete(value));
     }
@@ -53,11 +75,11 @@ public class SampleService {
         sample.setObs(sampleDTO.getObs());
 
         List<Picture> pictures = new ArrayList<>();
-        for(PictureDTO pictureOfList: sampleDTO.getPictures()){
+        for(Picture pictureOfList: sampleDTO.getPictures()){
             Picture picture = new Picture();
             picture.setId(UUID.randomUUID().toString());
-            picture.setTitle(pictureOfList.title());
-            picture.setLink(pictureOfList.link());
+            picture.setTitle(pictureOfList.getTitle());
+            picture.setLink(pictureOfList.getLink());
             pictures.add(picture);
         }
         sample.setPictures(pictures);

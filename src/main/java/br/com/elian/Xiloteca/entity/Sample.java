@@ -1,5 +1,6 @@
 package br.com.elian.Xiloteca.entity;
 
+import br.com.elian.Xiloteca.entity.dto.SampleDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,4 +39,20 @@ public class Sample {
     private String desc;
     private String obs;
     private List<Picture> pictures = new ArrayList<>();
+
+    public Sample(SampleDTO sampleDTO) {
+        setCod(sampleDTO.cod);
+        setBlade(sampleDTO.blade);
+        setHerb(sampleDTO.herb);
+        setFamily(sampleDTO.family);
+        setSciName(sampleDTO.sciName);
+        setComName(sampleDTO.comName);
+        setCollector(sampleDTO.collector);
+        setCollDate(sampleDTO.collDate);
+        setDeterminer(sampleDTO.determiner);
+        setSender(sampleDTO.sender);
+        setDesc(sampleDTO.desc);
+        setObs(sampleDTO.obs);
+        setPictures(sampleDTO.pictures);
+    }
 }
