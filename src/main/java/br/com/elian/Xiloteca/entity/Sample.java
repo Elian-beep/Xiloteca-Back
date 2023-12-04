@@ -40,19 +40,4 @@ public class Sample {
     private String obs;
     private List<Picture> pictures = new ArrayList<>();
 
-    public Sample(SampleDTO sampleDTO) {
-        setCod(sampleDTO.cod);
-        setBlade(sampleDTO.blade);
-        setHerb(sampleDTO.herb);
-        setFamily(sampleDTO.family);
-        setSciName(sampleDTO.sciName);
-        setComName(sampleDTO.comName);
-        setCollector(sampleDTO.collector);
-        setCollDate(sampleDTO.collDate);
-        setDeterminer(sampleDTO.determiner);
-        setSender(sampleDTO.sender);
-        setDesc(sampleDTO.desc);
-        setObs(sampleDTO.obs);
-        setPictures(sampleDTO.pictures);
-    }
 }

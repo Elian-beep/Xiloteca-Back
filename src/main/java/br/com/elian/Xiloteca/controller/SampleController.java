@@ -6,6 +6,7 @@ import br.com.elian.Xiloteca.service.SampleService;
 import com.mongodb.internal.authentication.SaslPrep;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class SampleController {
     SampleService sampleService;
 
     @GetMapping("find")
-    public ResponseEntity<List<Sample>> getAll(){
-        return ResponseEntity.ok().body(sampleService.getAll());
+    public ResponseEntity<List<Sample>> getAll(Pageable pageable){
+        return ResponseEntity.ok().body(sampleService.getAll(pageable).getContent());
     }
 
     @PostMapping("insert")
@@ -33,7 +34,7 @@ public class SampleController {
     @PutMapping("edit/{id}")
     public ResponseEntity<Sample> update(@RequestBody SampleDTO newSample, @PathVariable String id){
         Optional<Sample> sample = sampleService.findById(id);
-        Sample attSample = new Sample(newSample);
+        Sample attSample = sampleService.convertToEntity(newSample);
         if(sample.isEmpty()){
             return ResponseEntity.notFound().build();
         }

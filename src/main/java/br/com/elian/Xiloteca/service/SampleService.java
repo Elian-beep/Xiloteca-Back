@@ -6,6 +6,8 @@ import br.com.elian.Xiloteca.entity.dto.PictureDTO;
 import br.com.elian.Xiloteca.entity.dto.SampleDTO;
 import br.com.elian.Xiloteca.repository.SampleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,8 +21,8 @@ public class SampleService {
     @Autowired
     SampleRepository sampleRepository;
 
-    public List<Sample> getAll(){
-        return sampleRepository.findAll();
+    public Page<Sample> getAll(Pageable pageable){
+        return sampleRepository.findAll(pageable);
     }
 
     public Sample insert(@RequestBody Sample sample){
@@ -44,6 +46,7 @@ public class SampleService {
             attSample.setSender(newSample.getSender() != null ? newSample.getSender() : attSample.getSender());
             attSample.setDesc(newSample.getDesc() != null ? newSample.getDesc() : attSample.getDesc());
             attSample.setObs(newSample.getObs() != null ? newSample.getObs() : attSample.getObs());
+            attSample.setPictures(newSample.getPictures() != null ? newSample.getPictures() : attSample.getPictures());
             sampleRepository.save(sample.get());
             return sample.get();
         }
@@ -75,6 +78,9 @@ public class SampleService {
         sample.setObs(sampleDTO.getObs());
 
         List<Picture> pictures = new ArrayList<>();
+        if(sampleDTO.getPictures() == null){
+            return sample;
+        }
         for(Picture pictureOfList: sampleDTO.getPictures()){
             Picture picture = new Picture();
             picture.setId(UUID.randomUUID().toString());
