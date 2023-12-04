@@ -24,6 +24,26 @@ public class SampleController {
         return ResponseEntity.ok().body(sampleService.getAll(pageable).getContent());
     }
 
+    @GetMapping("findcod")
+    public ResponseEntity<List<Sample>> getByCod(@RequestParam("cod") String cod, Pageable pageable){
+        return ResponseEntity.ok().body(sampleService.getByCod(cod, pageable));
+    }
+
+    @GetMapping("findfamily")
+    public ResponseEntity<List<Sample>> getByFamily(@RequestParam("family") String family, Pageable pageable){
+        return ResponseEntity.ok().body(sampleService.getByFamily(family, pageable));
+    }
+
+    @GetMapping("findsciname")
+    public ResponseEntity<List<Sample>> getBySciName(@RequestParam("sciname") String sciName, Pageable pageable){
+        return ResponseEntity.ok().body(sampleService.getBySciName(sciName, pageable));
+    }
+
+    @GetMapping("findcomname")
+    public ResponseEntity<List<Sample>> getByComName(@RequestParam("comname") String comName, Pageable pageable){
+        return ResponseEntity.ok().body(sampleService.getByComName(comName, pageable));
+    }
+
     @PostMapping("insert")
     public ResponseEntity<Sample> insert(@RequestBody @Valid SampleDTO sampleDTO){
         Sample sample = sampleService.convertToEntity(sampleDTO);

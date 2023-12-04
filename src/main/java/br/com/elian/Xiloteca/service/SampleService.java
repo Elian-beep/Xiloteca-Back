@@ -25,6 +25,22 @@ public class SampleService {
         return sampleRepository.findAll(pageable);
     }
 
+    public List<Sample> getByCod(String cod, Pageable pageable){
+        return sampleRepository.findByCod(cod, pageable);
+    }
+
+    public List<Sample> getByFamily(String family, Pageable pageable){
+        return sampleRepository.findByFamily(family, pageable);
+    }
+
+    public List<Sample> getBySciName(String sciName, Pageable pageable){
+        return sampleRepository.findBySciName(sciName, pageable);
+    }
+
+    public List<Sample> getByComName(String comName, Pageable pageable){
+        return sampleRepository.findByComName(comName, pageable);
+    }
+
     public Sample insert(@RequestBody Sample sample){
         sampleRepository.insert(sample);
         return sample;
